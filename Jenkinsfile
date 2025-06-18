@@ -25,10 +25,19 @@ pipeline{
                 }
             }
         }
+        stage('k8s'){
+            steps{
+                dir('k8s'){
+                    sh 'kubectl apply -f Deployment.yaml'
+                }
+            }
+        }
 
         stage('validate'){
             steps{
                 sh 'curl http://localhost:8085/health'
+                sh 'kubectl get pods'
+                sh 'kubectl get svc'
             }
         }
     }

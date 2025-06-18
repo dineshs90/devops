@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: hello-k8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-k8s-app
+  template:
+    metadata:
+      labels:
+        name: hello-k8s-app
+  spec:
+    containers:
+    - name : gin-docker-app
+      image: localhost/myapp:{BUILD_NUMBER}
+      ports:
+       port: 8085
+       targetPort: 8085
+       nodePort: 30001
