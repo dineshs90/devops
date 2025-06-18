@@ -21,14 +21,14 @@ pipeline{
         stage('Run Docker Image'){
             steps{
                 script{
-                    sh "/opt/homebrew/bin/podman run -itd -p 80:8080 --name gin-docker-app myapp:${BUILD_NUMBER}}"
+                    sh "/opt/homebrew/bin/podman run -itd -p 8085:8085 --name gin-docker-app myapp:${BUILD_NUMBER}"
                 }
             }
         }
 
         stage('validate'){
             steps{
-                sh 'curl http://localhost:80/health'
+                sh 'curl http://localhost:8085/health'
             }
         }
     }
